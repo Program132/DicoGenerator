@@ -69,11 +69,26 @@ int main() {
     std::cout << "---------------------------------------------------------------" << std::endl;
     std::cout << "---------------------------------------------------------------" << std::endl;
 
-    std::vector<std::string> finalList;
-    std::set<std::string> motsDejaVus_finalLists;
-
     std::ifstream file {"listes_mots.txt"};
     std::ofstream save_file {"best_dico.txt"};
+
+    if (!file || !save_file) {
+        std::cout << "\n" << std::endl;
+        std::cout << "'listes_mots.txt' and 'best_dico.txt' are not in the folder." << std::endl;
+        std::cout << "\n" << std::endl;
+        std::cout << "---------------------------------------------------------------" << std::endl;
+        std::cout << "---------------------------------------------------------------" << std::endl;
+        std::cout << "----------------------- Dico Generator -----------------------" << std::endl;
+        std::cout << "--------------------------- Program --------------------------" << std::endl;
+        std::cout << "---------------------------------------------------------------" << std::endl;
+        std::cout << "---------------- https://github.com/Program132 ----------------" << std::endl;
+        std::cout << "---------------------------------------------------------------" << std::endl;
+        std::cout << "---------------------------------------------------------------" << std::endl;
+        return -1;
+    }
+
+    std::vector<std::string> finalList;
+    std::set<std::string> motsDejaVus_finalLists;
 
     std::string FileCode((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
     std::vector<std::string> words = splitStringBySpace(FileCode);
@@ -88,6 +103,15 @@ int main() {
         }
         save_file.close();
     }
+
+    std::cout << "---------------------------------------------------------------" << std::endl;
+    std::cout << "---------------------------------------------------------------" << std::endl;
+    std::cout << "----------------------- Dico Generator -----------------------" << std::endl;
+    std::cout << "--------------------------- Program --------------------------" << std::endl;
+    std::cout << "---------------------------------------------------------------" << std::endl;
+    std::cout << "---------------- https://github.com/Program132 ----------------" << std::endl;
+    std::cout << "---------------------------------------------------------------" << std::endl;
+    std::cout << "---------------------------------------------------------------" << std::endl;
 
     return 0;
 }

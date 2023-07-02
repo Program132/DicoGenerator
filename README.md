@@ -7,7 +7,7 @@ for example, we give **Hacker** in the program, we will find in the list **H@ck3
 
 ## Use the DicoGenerator program
 
-In the project, there is the file *listes_mots.txt*, open it and write every words you want.
+In the project, there is the file *listes_mots.txt*, open it and write every word you want.
 Then in the file *best_dico.txt* you will find every words that the program created, 
 the program will show you the words that he did.
 
