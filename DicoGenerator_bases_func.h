@@ -1,5 +1,9 @@
 #pragma once
 
+#include "DicoGenerator_Classes.h"
+
+#include <set>
+
 std::string returnFirstWord(std::string& word) {
     std::string w = word;
 
@@ -52,8 +56,6 @@ std::vector<std::string> assemblerMotsUnParUn_2(const std::string& mot, const st
     listeMots.reserve(motsModifies.size());
     listeMots.push_back(mot); // Ajouter le mot original à la liste
 
-    std::string motActuel = mot;
-
     for (const auto& motModifie : motsModifies) {
         for (size_t i = 1; i < mot.length(); i++) {
             std::string motSuivant = motModifie;
@@ -62,11 +64,52 @@ std::vector<std::string> assemblerMotsUnParUn_2(const std::string& mot, const st
             }
 
             listeMots.push_back(motSuivant);
-            motActuel = motSuivant;
         }
     }
 
     return listeMots;
 }
 
+std::vector<std::string> assembleNumberWord(const std::vector<std::string>& list) {
+    std::vector<std::string> listeMots;
+
+    for (const auto& motModifie : list) {
+        for (int i = 1; i <= 1000; i++) {
+            std::string motSuivant = std::to_string(i) + motModifie;
+            std::string motSuivant2 = motModifie + std::to_string(i);
+            listeMots.push_back(motSuivant);
+            listeMots.push_back(motSuivant2);
+        }
+    }
+
+    return listeMots;
+}
+
+std::vector<std::string> assembleTiretsToWord(const std::vector<std::string>& list) {
+    std::vector<std::string> listeMots;
+
+    for (const auto& motModifie : list) {
+        std::string motSuivant = "-" + motModifie;
+        std::string motSuivant2 = motModifie + "-";
+        listeMots.push_back(motSuivant);
+        listeMots.push_back(motSuivant2);
+
+        motSuivant = "--" + motModifie;
+        motSuivant2 = motModifie + "--";
+        listeMots.push_back(motSuivant);
+        listeMots.push_back(motSuivant2);
+
+        motSuivant = "---" + motModifie;
+        motSuivant2 = motModifie + "---";
+        listeMots.push_back(motSuivant);
+        listeMots.push_back(motSuivant2);
+
+        motSuivant = "----" + motModifie;
+        motSuivant2 = motModifie + "----";
+        listeMots.push_back(motSuivant);
+        listeMots.push_back(motSuivant2);
+    }
+
+    return listeMots;
+}
 
