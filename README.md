@@ -36,3 +36,8 @@ Give me a word: hacker
 [Demonstration (Video)](https://gyazo.com/94d00302c16e5ed3318e4807e7339e9d)
 
 ![img.png](img.png)
+
+## Documents
+
+Every French Words: https://usito.usherbrooke.ca/index/mots/tous/c#c
+Every English Words: https://fr.wikipedia.org/wiki/Liste_Swadesh_de_l'anglais, ...
