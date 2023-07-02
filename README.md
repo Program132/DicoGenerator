@@ -32,3 +32,7 @@ Give me a word: hacker
 14: #@(k3r
 15: #a(k3r
 ```
+
+[Demonstration (Video)](https://gyazo.com/94d00302c16e5ed3318e4807e7339e9d)
+
+![img.png](img.png)

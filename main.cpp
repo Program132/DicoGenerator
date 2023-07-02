@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <string_view>
 #include <fstream>
 #include <sstream>
 
@@ -20,16 +19,20 @@ std::vector<std::string> splitStringBySpace(const std::string& input) {
 }
 
 
-void addToFinalList(std::vector<std::string>& final, std::set<std::string>& motsdejavue, std::vector<std::string>& currentL) {
+void addToFinalList(std::vector<std::string>& final, std::set<std::string>& motsdejavue, std::vector<std::string>& currentL, std::ofstream &save_file, int &total_words) {
     for (auto const& element : currentL) {
         if (motsdejavue.find(element) == motsdejavue.end()) {
+            std::cout << total_words << ":" << element << std::endl;
+
             final.push_back(element);
             motsdejavue.insert(element);
+            save_file << element << "\n";
+            total_words += 1;
         }
     }
 }
 
-void executeForOneWord(std::vector<std::string>& finalList, std::set<std::string>& motsDejaVus_finalLists, std::string word) {
+void executeForOneWord(std::vector<std::string>& finalList, std::set<std::string>& motsDejaVus_finalLists, std::string word, std::ofstream &save_file, int &total_words) {
     std::string selected_word = word;
     motsDejaVus_finalLists.insert(selected_word);
     std::string first_word = selected_word;
@@ -42,21 +45,16 @@ void executeForOneWord(std::vector<std::string>& finalList, std::set<std::string
     finalList.push_back(selected_word);
     finalList.push_back(third_word);
     finalList.push_back(second_word);
-    addToFinalList(finalList, motsDejaVus_finalLists, generated_base);
+    total_words += 3;
+    addToFinalList(finalList, motsDejaVus_finalLists, generated_base, save_file, total_words);
     for (auto e : generated_second) {
-        addToFinalList(finalList, motsDejaVus_finalLists, e);
+        addToFinalList(finalList, motsDejaVus_finalLists, e, save_file, total_words);
     }
-    addToFinalList(finalList, motsDejaVus_finalLists, generated_third);
+    addToFinalList(finalList, motsDejaVus_finalLists, generated_third, save_file, total_words);
     std::vector<std::string> generatedNumber_Word = assembleNumberWord(finalList);
-    addToFinalList(finalList, motsDejaVus_finalLists, generatedNumber_Word);
+    addToFinalList(finalList, motsDejaVus_finalLists, generatedNumber_Word, save_file, total_words);
     std::vector<std::string> generateTiretsWord = assembleTiretsToWord(finalList);
-    addToFinalList(finalList, motsDejaVus_finalLists, generateTiretsWord);
-
-    int i = 1;
-    for (std::string_view e : finalList) {
-        std::cout << i << ":" << e << std::endl;
-        i++;
-    }
+    addToFinalList(finalList, motsDejaVus_finalLists, generateTiretsWord, save_file, total_words);
 }
 
 int main() {
@@ -87,6 +85,8 @@ int main() {
         return -1;
     }
 
+    int total_words = 1;
+
     std::vector<std::string> finalList;
     std::set<std::string> motsDejaVus_finalLists;
 
@@ -94,15 +94,15 @@ int main() {
     std::vector<std::string> words = splitStringBySpace(FileCode);
 
     for (auto const& e : words) {
-        executeForOneWord(finalList, motsDejaVus_finalLists, e);
+        executeForOneWord(finalList, motsDejaVus_finalLists, e, save_file, total_words);
+        finalList.clear();
     }
 
-    if (save_file && save_file.is_open()) {
-        for (std::string_view e : finalList) {
-            save_file << e;
-        }
-        save_file.close();
-    }
+    save_file.close();
+
+    std::cout << "\n" << std::endl;
+    std::cout << "You have " << total_words << " in your 'best_dico.txt' file" << std::endl;
+    std::cout << "\n" << std::endl;
 
     std::cout << "---------------------------------------------------------------" << std::endl;
     std::cout << "---------------------------------------------------------------" << std::endl;
